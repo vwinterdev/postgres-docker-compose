@@ -20,7 +20,7 @@ services:
       CB_ADMIN_NAME: ${CB_ADMIN_NAME:-admin}               # Администратор (fallback: admin)
       CB_ADMIN_PASSWORD: ${CB_ADMIN_PASSWORD:-admin123}    # Пароль администратора (fallback: admin123)
     ports:
-      - "8080:8080"
+      - "8978:8978"
     depends_on:
       - postgres
 
