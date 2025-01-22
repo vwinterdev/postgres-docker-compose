@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-default_user}         # Имя пользователя (fallback: default_user)
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-default_password} # Пароль (fallback: default_password)
+      POSTGRES_DB: ${POSTGRES_DB:-default_database}         # Имя базы данных (fallback: default_database)
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: cloudbeaver-container
+    environment:
+      CB_ADMIN_NAME: ${CB_ADMIN_NAME:-admin}               # Администратор (fallback: admin)
+      CB_ADMIN_PASSWORD: ${CB_ADMIN_PASSWORD:-admin123}    # Пароль администратора (fallback: admin123)
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
